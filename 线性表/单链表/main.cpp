@@ -1,16 +1,16 @@
 #include "List.h"
 #include <iostream>
 using namespace std;
-int main()
+int main(void)
 {
-    List<int> l;
+    List<int> ul;
     std::cout << "输入：" << endl;
     l.input();
 
     std::cout << "输出：" << endl;
     l.output();
 
-    cout << "插入：" << endl;
+    cout << "插入：" << endl; // 注意：下标从1开始
     cout << "输入插入位置和元素值" << endl;
     int pos, value;
     cin >> pos >> value;
@@ -28,13 +28,13 @@ int main()
     cout << "获取元素：" << endl;
     cout << "请输入元素下标：" << endl;
     cin >> pos;
-    l.getData(pos + 1, value);
+    l.getData(pos, value); // 链表下标从1开始，而输入下标从1
     cout << "下标为" << pos << " 的元素为：" << value << endl;
 
     cout << "设置元素：" << endl;
     cout << "请输入要设置的元素下标及值：" << endl;
     cin >> pos >> value;
-    l.setData(pos + 1, value);
+    l.setData(pos, value);
     cout << "设置后，单链表如下：" << endl;
     l.output();
 

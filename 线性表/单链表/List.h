@@ -13,6 +13,19 @@ struct LinkNode
         data = item;
         link = ptr;
     }
+    LinkNode<T> &operator=(LinkNode<T> &rhs);
+};
+
+template <class T>
+LinkNode<T> &LinkNode<T>::operator=(LinkNode<T> &rhs)
+{
+    if (this == &rhs)
+    {
+        return *this;
+    }
+    data = rhs.data;
+    link = rhs.data;
+    return *this;
 };
 
 template <class T>
@@ -208,7 +221,7 @@ bool List<T>::remove(int i, T &x)
     {
         return false;
     }
-    LinkNode<T> *current = locate(i); // 定位需删除元素前一元素，注意由于下标与实际存储位置相差1
+    LinkNode<T> *current = locate(i - 1); // 定位需删除元素前一元素，注意由于下标与实际存储位置相差1
     // 故定位i而非i-1
     if (current == NULL || current->link == NULL) // 删除元素为头节点或尾结点
     {
@@ -225,7 +238,23 @@ bool List<T>::remove(int i, T &x)
 };
 
 template <class T>
-void List<T>::sort(){};
+void List<T>::sort()
+{
+    for (int i = 1; i <= length(); i++)
+    {
+        for (int j = 1; j <= length() - i; j++) // 注意下标起始
+        {
+            LinkNode<T> *t1 = locate(j);
+            LinkNode<T> *t2 = locate(j + 1);
+            if (t1->data > t2->data)
+            {
+                T temp = t1->data;
+                t1->data = t2->data;
+                t2->data = temp;
+            }
+        }
+    }
+};
 
 // 输出
 template <class T>
