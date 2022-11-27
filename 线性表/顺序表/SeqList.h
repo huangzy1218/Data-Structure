@@ -1,50 +1,48 @@
-#ifndef SEQLIST_H
-#define SEQLIST_H
 #include "LinearList.h"
 
 template<class T>
 class SeqList: public LinearList<T> {
 public:
-    SeqList(int = defaultSize);               // ¹¹Ôìº¯Êı
-    SeqList<T>& operator=(const SeqList<T>&); // ÖØÔØº¯Êı£º¸³Öµ
-    SeqList(SeqList<T>&);                     // ¸´ÖÆ¹¹Ôì
-    ~SeqList();                               // Îö¹¹º¯Êı
-    bool Insert(int i, const T& x);           // ²åÈë
-    bool Remove(int i);                       // É¾³ı
-    int Search(T& x) const;                   // ËÑË÷
-    int Locate(int i) const;                  // ¶¨Î»
-    void Sort();                              // ÅÅĞò
-    bool GetData(int i, T& x) const;          // È¡Öµ
-    void SetData(int i, T& x);                // ¸³Öµ
-    int Size() const;                         // Çó±í×î´ó¿Õ¼ä
-    int Length() const;                       // Çó±í³¤¶È
-    bool IsEmpty() const;                     // ÅĞ±í¿Õ
-    bool IsFull() const;                      // ÅĞ±íÂú
-    void Input();                             // ÊäÈë
-    void Output();                            // Êä³ö 
+    SeqList(int = defaultSize);               // æ„é€ å‡½æ•°
+    SeqList<T>& operator=(const SeqList<T>&); // é‡è½½å‡½æ•°ï¼šèµ‹å€¼
+    SeqList(SeqList<T>&);                     // å¤åˆ¶æ„é€ 
+    ~SeqList();                               // ææ„å‡½æ•°
+    bool Insert(int i, const T& x);           // æ’å…¥
+    bool Remove(int i);                       // åˆ é™¤
+    int Search(T& x) const;                   // æœç´¢
+    int Locate(int i) const;                  // å®šä½
+    void Sort();                              // æ’åº
+    bool GetData(int i, T& x) const;          // å–å€¼
+    void SetData(int i, T& x);                // èµ‹å€¼
+    int Size() const;                         // æ±‚è¡¨æœ€å¤§ç©ºé—´
+    int Length() const;                       // æ±‚è¡¨é•¿åº¦
+    bool IsEmpty() const;                     // åˆ¤è¡¨ç©º
+    bool IsFull() const;                      // åˆ¤è¡¨æ»¡
+    void Input();                             // è¾“å…¥
+    void Output();                            // è¾“å‡º 
 protected:
-    T* data;                                  // Êı¾İ
-    int MaxSize;                              // ±í×î´ó¿Õ¼ä
-    int last;                                 // ±íÎ²
-    void ReSize(int);                         // ¸Ä±ä´óĞ¡
+    T* data;                                  // æ•°æ®
+    int MaxSize;                              // è¡¨æœ€å¤§ç©ºé—´
+    int last;                                 // è¡¨å°¾
+    void ReSize(int);                         // æ”¹å˜å¤§å°
 };
 
-// ¹¹Ôìº¯Êı
+// æ„é€ å‡½æ•°
 template<typename T>
 SeqList<T>::SeqList(int sz)
 {
     if (sz > 0) {
-        MaxSize = sz;                           // ¸üĞÂ×î´ó¿Õ¼ä
-        last = -1;                              // ±íÎ²Î»ÖÃÎª-1
+        MaxSize = sz;                           // æ›´æ–°æœ€å¤§ç©ºé—´
+        last = -1;                              // è¡¨å°¾ä½ç½®ä¸º-1
     }
     data = new T[MaxSize];  
-    if (data == NULL) {                         // ÄÚ´æ·ÖÅäÊ§°Ü
-        cerr << "´æ´¢·ÖÅä´íÎó" << endl;
+    if (data == NULL) {                         // å†…å­˜åˆ†é…å¤±è´¥
+        cerr << "å­˜å‚¨åˆ†é…é”™è¯¯" << endl;
         exit(1);
     }
 }
 
-// ¸´ÖÆ¹¹Ôìº¯Êı
+// å¤åˆ¶æ„é€ å‡½æ•°
 template<typename T>
 SeqList<T>::SeqList(SeqList<T>& L)
 {
@@ -52,28 +50,28 @@ SeqList<T>::SeqList(SeqList<T>& L)
     last = L.last;
     data = new T[MaxSize];
     if (data == NULL) {
-        cerr << "´æ´¢·ÖÅä´íÎó" << endl;
+        cerr << "å­˜å‚¨åˆ†é…é”™è¯¯" << endl;
         exit(1);
     }
     for (int i = 0; i <= last; i++) {
-        data[i] = L.data[i];                    // ÒÀ´Î¸³Öµ
+        data[i] = L.data[i];                    // ä¾æ¬¡èµ‹å€¼
     }
 }
 
-// ¸³ÖµÔËËã·ûÖØÔØ
+// èµ‹å€¼è¿ç®—ç¬¦é‡è½½
 template<typename T>
 SeqList<T>& SeqList<T>::operator=(const SeqList<T>& L)
 {
-    // ·ÀÖ¹×ÔÎÒ¸³Öµ
+    // é˜²æ­¢è‡ªæˆ‘èµ‹å€¼
     if (this == &L) {
         return *this;
     }
-    delete[] data;                              // ÊÍ·ÅÔ­¿Õ¼ä
+    delete[] data;                              // é‡Šæ”¾åŸç©ºé—´
         MaxSize = L.MaxSize;
     last = L.last;
     data = new T[MaxSize];
     if (data == NULL) {
-        cerr << "´æ´¢·ÖÅä´íÎó" << endl;
+        cerr << "å­˜å‚¨åˆ†é…é”™è¯¯" << endl;
         exit(1);
     }
     for (int i = 0; i <= last; i++) {
@@ -81,68 +79,68 @@ SeqList<T>& SeqList<T>::operator=(const SeqList<T>& L)
     }
 }
 
-// ¸Ä±ä´óĞ¡
+// æ”¹å˜å¤§å°
 template<typename T>
 void SeqList<T>::ReSize(int newSize)
 {
-    if (newSize <= 0) {  // ÎŞĞ§ĞŞ¸Ä
-        cerr << "ÎŞĞ§µÄÊı×é´óĞ¡" << endl;
+    if (newSize <= 0) {  // æ— æ•ˆä¿®æ”¹
+        cerr << "æ— æ•ˆçš„æ•°ç»„å¤§å°" << endl;
         exit(1);
     }
-    if (newSize != MaxSize) {                   // ÓĞĞ§ĞŞ¸Ä
+    if (newSize != MaxSize) {                   // æœ‰æ•ˆä¿®æ”¹
         T* newData = new T[newSize];
-        if (newData == NULL) {                  // ÖØĞÂ·ÖÅäÄÚ´æ
-            cerr << "´æ´¢·ÖÅä´íÎó" << endl;
+        if (newData == NULL) {                  // é‡æ–°åˆ†é…å†…å­˜
+            cerr << "å­˜å‚¨åˆ†é…é”™è¯¯" << endl;
             exit(1);
         }
-        int n = last + 1;                       // ÔªËØÊµ¼Ê¸öÊı 
+        int n = last + 1;                       // å…ƒç´ å®é™…ä¸ªæ•° 
         T* srcptr = data;
         T* desptr = newData;
         while (n--) {
             *desptr++ = *srcptr++;
         }
-        delete [] data;                        // ÊÍ·ÅÔ­ÄÚ´æ
+        delete [] data;                        // é‡Šæ”¾åŸå†…å­˜
         data = newData;   
         MaxSize = newSize;
     }
 }
 
-// Îö¹¹º¯Êı
+// ææ„å‡½æ•°
 template<typename T>
 SeqList<T>::~SeqList()
 {
     delete[] data;
 }
 
-// ÅĞ¿Õ
+// åˆ¤ç©º
 template<typename T>
 bool SeqList<T>::IsEmpty() const
 {
     return last == -1;
 }
 
-// ÅĞÂú
+// åˆ¤æ»¡
 template<typename T>
 bool SeqList<T>::IsFull() const 
 {
     return last == MaxSize - 1;
 }
 
-// »ñÈ¡×î´ó¿Õ¼ä
+// è·å–æœ€å¤§ç©ºé—´
 template<typename T>
 int SeqList<T>::Size() const
 {
     return MaxSize;
 }
 
-// »ñÈ¡±í³¤
+// è·å–è¡¨é•¿
 template<typename T>
 int SeqList<T>::Length() const
 {
     return last + 1;
 }
 
-// ¶¨Î»µÚ¼¸¸öÔªËØ£¨´Ó1¿ªÊ¼£©
+// å®šä½ç¬¬å‡ ä¸ªå…ƒç´ ï¼ˆä»1å¼€å§‹ï¼‰
 template<typename T>
 int SeqList<T>::Locate(int i) const
 {
@@ -153,7 +151,7 @@ int SeqList<T>::Locate(int i) const
     }
 }
 
-// È¡µÚi¸öÔªËØÖµ
+// å–ç¬¬iä¸ªå…ƒç´ å€¼
 template<typename T>
 bool SeqList<T>::GetData(int i, T& x) const
 {
@@ -165,7 +163,7 @@ bool SeqList<T>::GetData(int i, T& x) const
     }
 }
 
-//  ¸øµÚi¸öÔªËØ¸³Öµ
+//  ç»™ç¬¬iä¸ªå…ƒç´ èµ‹å€¼
 template<typename T>
 void SeqList<T>::SetData(int i, T& x)
 {
@@ -174,80 +172,80 @@ void SeqList<T>::SetData(int i, T& x)
     }
 }
 
-// ²éÕÒÔªËØ
+// æŸ¥æ‰¾å…ƒç´ 
 template<typename T>
 int SeqList<T>::Search(T & x) const
 {
     for (int i = 0; i <= last; i++) {
         if (data[i] == x) {
-            return i + 1;                        // ÏÂ±êÓëÔªËØÎ»ÖÃÏà²î1                  
+            return i + 1;                        // ä¸‹æ ‡ä¸å…ƒç´ ä½ç½®ç›¸å·®1                  
         }
     }
     return 0;
 }
 
 
-// ²åÈë
+// æ’å…¥
 template<typename T>
 bool SeqList<T>::Insert(int i, const T& x)
 {
     if (i == MaxSize - 1) {
         return false;
     }
-    if (!Locate(i)) {                           // Ô½½ç
+    if (!Locate(i)) {                           // è¶Šç•Œ
         return false;
     }
     for (int j = last; j >= i - 1; j--) {
-        data[j+1] = data[j];                    // ½«iºóµÄÔªËØÒÀ´ÎÏòºóÒÆ¶¯Ò»Î»£¬×¢ÒâĞèÒª´ÓºóÍùÇ°ÒÀ´Î¸³Öµ
+        data[j+1] = data[j];                    // å°†iåçš„å…ƒç´ ä¾æ¬¡å‘åç§»åŠ¨ä¸€ä½ï¼Œæ³¨æ„éœ€è¦ä»åå¾€å‰ä¾æ¬¡èµ‹å€¼
     }
     
-    data[i-1] = x;                             // Ö¸¶¨ÔªËØ²åÈë
-    ++last;                                    // ÔªËØ¸öÊı+1
+    data[i-1] = x;                             // æŒ‡å®šå…ƒç´ æ’å…¥
+    ++last;                                    // å…ƒç´ ä¸ªæ•°+1
     return true;
 }
 
 
-// É¾³ı
+// åˆ é™¤
 template<typename T>
 bool SeqList<T>::Remove(int i)
 {
-    if (last == -1) {                          // ±í¿Õ
+    if (last == -1) {                          // è¡¨ç©º
         return false;
     }
-    if (!Locate(i)) {                         // Ô½½ç
+    if (!Locate(i)) {                         // è¶Šç•Œ
         return false;
     }
-    for (int j = i - 1; j < last; j++) {      // ½«iºóµÄÔªËØÒÀ´ÎÏòÇ°ÒÆ¶¯Ò»Î»£¬×¢ÒâĞèÒª´ÓÇ°ÍùºóÒÀ´Î¸³Öµ
+    for (int j = i - 1; j < last; j++) {      // å°†iåçš„å…ƒç´ ä¾æ¬¡å‘å‰ç§»åŠ¨ä¸€ä½ï¼Œæ³¨æ„éœ€è¦ä»å‰å¾€åä¾æ¬¡èµ‹å€¼
         data[j] = data[j+1];
     }
-    --last;                                   // ÔªËØ¸öÊı-1
+    --last;                                   // å…ƒç´ ä¸ªæ•°-1
     return true;
 }
 
 
-// ÊäÈëÔªËØ
+// è¾“å…¥å…ƒç´ 
 template<typename T>
 void SeqList<T>::Input()
 {
-    cout << "¿ªÊ¼½¨Á¢Ë³Ğò±í£¬ÇëÊäÈë±íÖĞÔªËØ¸öÊı" << endl;
+    cout << "Start to create a sequence table. Please enter the number of elements in the table" << endl;
     while (1) {
         cin >> last;
         if (last < MaxSize) {
             break;
         }
-        cout << "ÊäÈë¸öÊıÓĞÎó£¬·¶Î§²»ÄÜ³¬¹ı" << MaxSize - 1 << endl;
+        cout << "The number of entries is incorrect, and the range cannot exceed" << MaxSize - 1 << endl;
     }
     for (int i = 0; i < last; i++) {
         cin >> data[i];
     }
-    --last;                                 // ÔªËØ¸öÊıÓëÏÂ±ê×î´óÖµÏà²î1
+    --last;                                 // å…ƒç´ ä¸ªæ•°ä¸ä¸‹æ ‡æœ€å¤§å€¼ç›¸å·®1
 }
 
-// Êä³öÔªËØ
+// è¾“å‡ºå…ƒç´ 
 template<typename T>
 void SeqList<T>::Output()
 {
-   for (int i = 0; i < last; i++)           // ¸ñÊ½»¯Êä³ö
+   for (int i = 0; i <= last; i++)           // æ ¼å¼åŒ–è¾“å‡º
    {
        if (i != 0)
        {
@@ -258,11 +256,9 @@ void SeqList<T>::Output()
    cout << endl;
 }
 
-// ÅÅĞò
+// æ’åº
 template<typename T>
-void SeqList<T>::Sort()                     // ÀûÓÃÒÑÓĞº¯Êı
+void SeqList<T>::Sort()                     // åˆ©ç”¨å·²æœ‰å‡½æ•°
 {
    std::sort(data, data + last);
 }
-
-#endif // SEQLIST_H

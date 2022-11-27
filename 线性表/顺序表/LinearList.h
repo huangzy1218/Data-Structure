@@ -1,14 +1,13 @@
-#ifndef LINEARLIST_H
-#define LINEARLIST_H
 #include <iostream>
 #include <algorithm>
 
 using namespace std;
 const int defaultSize = 100;
-template <typename T>
+template <class T>
 class LinearList {
 public:
     LinearList() {}                                 // 构造函数
+    LinearList(LinearList<T>& L);                   // 复制构造函数
     ~LinearList() {}                                // 析构函数
     virtual bool Insert(int i, const T& x) = 0;     // 插入
     virtual bool Remove(int i) = 0;                 // 删除
@@ -24,3 +23,4 @@ public:
     virtual void Input() = 0;                       // 输入
     virtual void Output() = 0;                      // 输出
 };
+
