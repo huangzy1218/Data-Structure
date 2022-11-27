@@ -1,91 +1,116 @@
 #include <iostream>
-#include "List.h"
+#include <cassert>
 #include "Stack.h"
-
+using namespace std;
 template <class T>
-class LinkedStack: public Stack<T> {
-public:
-    LinkedStack(): top(NULL) {}                 // 构造函数，置空栈
-    ~LinkedStack() { MakeEmpty(); }             // 析构函数
-    void Push(const T& x);                      // 进栈
-    void Pop(T &x);                             // 出栈
-    bool GetTop(T& x);                          // 读取栈顶元素
-    bool IsEmpty() const { return top == NULL; }// 判空
-    int GetSize() const;                        // 求栈的元素个数
-    friend ostream& operator<<(ostream& os, LinkedStack<T>& s);
-    // 运算符重载：输出
-private:
-    LinkNode<T>* top;
+struct LinkNode
+{
+    T data;
+    LinkNode<T> *link;
+    LinkNode(LinkNode<T> *ptr = NULL) { link = ptr; }
+    LinkNode(const T &item, LinkNode *ptr = NULL)
+    {
+        data = item;
+        link = ptr;
+    }
 };
 
-// 置空栈
 template <class T>
-LinkedStack<T>::MakeEmpty()
+class LinkedStack;
+template <class U>
+ostream &operator<<(ostream &os, LinkedStack<U> &S);
+template <class T>
+class LinkedStack : public Stack<T>
 {
-    LinkedStack<T>* p;              // 记录删除的结点
-    while (top != NULL) {
+public:
+    LinkedStack() : top(NULL) {}                 // 构造函数
+    ~LinkedStack() { makeEmpty(); }              // 析构函数
+    void push(const T &x);                       // 入栈
+    bool pop(T &x);                              // 出栈
+    bool getTop(T &x);                           // 获取栈顶元素
+    bool isEmpty() const { return top == NULL; } // 判空
+    bool isFull() const { return false; }        // 判满
+    int size() const;                            // 获取大小
+    void makeEmpty();                            //置空
+    template <class U>
+    friend ostream &operator<<(ostream &os, LinkedStack<U> &S);
+    // 输出运算符重载
+private:
+    LinkNode<T> *top;
+};
+
+// 置空
+template <class T>
+void LinkedStack<T>::makeEmpty()
+{
+    LinkNode<T> *p; // 遍历各结点
+    while (top != NULL)
+    {
         p = top;
         top = p->link;
-        delete p;                   // 释放结点
+        delete p; // 依次删除各结点
     }
 };
 
+// 入栈
 template <class T>
-void LinkedStack<T>::Push(const T& x)
+void LinkedStack<T>::push(const T &x)
 {
-    top = new LinkNode<T>(x, top);  // 在原top结点后插入新结点，头插法
-    assert(top != NULL);            // 断言
+    top = new LinkNode<T>(x, top); // 入栈
+    assert(top != NULL);
 };
 
+// 出栈
 template <class T>
-bool LinkedStack<T>::Pop(T& x) 
+bool LinkedStack<T>::pop(T &x)
 {
-    if (IsEmpty()) {                // 若链表为空，则无法出栈
+    if (isEmpty()) // 栈空
+    {
         return false;
     }
-    LinkNode<T>* p = top;           // 暂存栈顶元素
+    LinkNode<T> *p = top; // 出栈元素
     top = top->link;
-    x = p->data;                    // 保存栈顶结点的值
-    delete p;                       // 释放栈顶元素
+    x = p->data;
+    delete p; // 删除出栈元素
     return true;
 };
 
-// 获取头结点
+// 获取栈顶元素
 template <class T>
-bool LinkedStack<T>::GetTop(T& x) const 
+bool LinkedStack<T>::getTop(T &x)
 {
-    if (IsEmpty()) {
+    if (isEmpty()) // 判空
+    {
         return false;
     }
     x = top->data;
-    retur true;
+    return true;
 };
 
-// 求栈的元素个数
+// 获取大小
 template <class T>
-int LinkedStack<T>::GetSize() const
+int LinkedStack<T>::size() const
 {
-    LinkNode<T>* p = top;          // 实现链表遍历
-    int k = 0;
-    while (p != NULL) {             
+    LinkNode<T> *p = top; // 用于遍历
+    int count = 0;
+    while (p != NULL)
+    {
         p = p->link;
-        k++;
+        ++count;
     }
-    return k;
-}
+    return count;
+};
 
-// 运算符重构：输出
+// 输出运算符重载
 template <class T>
-ostream& operator << (ostream& os, LinkedStack<T>& s)
+ostream &operator<<(ostream &os, LinkedStack<T> &s)
 {
-    os << "栈中元素个数：" << s.GetSize << endl;
-
-    LinkNode<T>* p = s.top;
-    int i = 0;
-    while (p != NULL) {
-        os << ++i << ": " << p->data << endl;
-        p = p->link; 
+    LinkNode<T> *p = s.top;
+    while (p != NULL)
+    {
+        os << p->data << " ";
+        p = p->link;
     }
+    os << endl;
     return os;
-
-} 
+};
