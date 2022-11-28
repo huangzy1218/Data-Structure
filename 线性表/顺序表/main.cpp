@@ -1,63 +1,63 @@
 #include "SeqList.h"
+#include <iostream>
 using namespace std;
-
-int main()
+int main(void)
 {
-    SeqList<int> sl;                    // ÊûÑÂª∫È°∫Â∫èË°®
-    cout << "---Input---" << endl;
-    sl.Input();
+    SeqList<int> sl;
+    std::cout << " ‰»Î£∫" << endl;
+    sl.input();
 
-    cout << "---Output---" << endl;
-    sl.Output();
+    std::cout << " ‰≥ˆ£∫" << endl;
+    sl.output();
 
-    cout << "---Insert---" << endl;
-    cout << "Please input the position and value:" << endl;
+    cout << "≤Â»Î£∫" << endl; // ◊¢“‚£∫œ¬±Í¥”1ø™ º
+    cout << " ‰»Î≤Â»ÎŒª÷√∫Õ‘™Àÿ÷µ" << endl;
     int pos, value;
     cin >> pos >> value;
-    sl.Insert(pos, value);
-    cout << "After insert, the sequent list is as followed:" << endl;
-    sl.Output();
+    sl.insert(pos, value);
+    cout << "≤Â»Î∫Û£¨À≥–Ú±Ì»Áœ¬£∫" << endl;
+    sl.output();
 
-    cout << "---Remove---" << endl;
-    cout << "Please input the index of element should be removed:" << endl;
+    cout << "…æ≥˝£∫" << endl;
+    cout << "«Î ‰»Î–Ë…æ≥˝µƒ‘™Àÿœ¬±Í" << endl;
     cin >> pos;
-    sl.Remove(pos);
-    cout << "After remove, the sequent list is as followed:" << endl;
-    sl.Output();
+    sl.remove(pos, value);
+    cout << "…æ≥˝∫Û£¨À≥–Ú±Ì»Áœ¬£∫" << endl;
+    sl.output();
 
-    cout << "---GetData---" << endl;
-    cout << "Please enter the index of the element you want:" << endl;
+    cout << "ªÒ»°‘™Àÿ£∫" << endl;
+    cout << "«Î ‰»Î‘™Àÿœ¬±Í£∫" << endl;
     cin >> pos;
-    sl.GetData(pos + 1, value);
-    cout << "Element with subscript " << pos << " is " <<  value << endl;
+    sl.getData(pos, value); // ¡¥±Ìœ¬±Í¥”1ø™ º£¨∂¯ ‰»Îœ¬±Í¥”1
+    cout << "œ¬±ÍŒ™" << pos << " µƒ‘™ÀÿŒ™£∫" << value << endl;
 
-    cout << "---SetDate---" << endl;
-    cout << "Please enter the index of the element you want reset" << endl;
+    cout << "…Ë÷√‘™Àÿ£∫" << endl;
+    cout << "«Î ‰»Î“™…Ë÷√µƒ‘™Àÿœ¬±Íº∞÷µ£∫" << endl;
     cin >> pos >> value;
-    sl.SetData(pos + 1, value);
-    cout << "After set, the sequent list is as followed:" << endl;
-    sl.Output();
+    sl.setData(pos, value);
+    cout << "…Ë÷√∫Û£¨À≥–Ú±Ì»Áœ¬£∫" << endl;
+    sl.output();
 
-    cout << "---Length---" << endl;
-    cout << "The length of the sequent list is " << sl.Length() << endl;
+    cout << "≥§∂»£∫" << endl;
+    cout << "À≥–Ú±Ì≥§∂»Œ™£∫" << sl.length() << endl;
 
-    cout << "---Size---" << endl;
-    cout << "The size of the sequent list is " << sl.Size() << endl;
-
-    cout << "---Search---" << endl;
-    cout << "Please enter the element you search:" << endl;
+    cout << "≤È’“£∫" << endl;
+    cout << "«Î ‰»ÎÀ˘“™≤È’“µƒ‘™Àÿ£∫" << endl;
     cin >> value;
-    pos = sl.Search(value);
-    if (!pos) {
-        cout << "Not Found!" << endl;
-    } else {
-        cout << value << " is the NO." << pos << endl;
+    pos = sl.search(value);
+    if (pos == -1)
+    {
+        cout << "Œ¥≤È—ØµΩ∏√‘™Àÿ" << endl;
+    }
+    else
+    {
+        cout << "∏√‘™Àÿ¥Ê‘⁄" << endl;
     }
 
-    cout << "---Sort---" << endl;
-    sl.Sort();
-    cout << "After sorted, the the sequent list is as followed:" << endl;
-    sl.Output();
+    cout << "≈≈–Ú£∫" << endl;
+    sl.sort();
+    cout << "≈≈–Ú∫Û£¨µ•¡¥±Ì»Áœ¬£∫" << endl;
+    sl.output();
 
     return 0;
 }

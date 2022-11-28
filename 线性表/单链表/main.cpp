@@ -54,7 +54,7 @@ int main(void)
         cout << "该元素存在" << endl;
     }
 
-    cout << "排序" << endl;
+    cout << "排序：" << endl;
     l.sort();
     cout << "排序后，单链表如下：" << endl;
     l.output();

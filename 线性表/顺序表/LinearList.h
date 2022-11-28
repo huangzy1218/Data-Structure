@@ -4,23 +4,22 @@
 using namespace std;
 const int defaultSize = 100;
 template <class T>
-class LinearList {
+class LinearList
+{
 public:
-    LinearList() {}                                 // æ„é€ å‡½æ•°
-    LinearList(LinearList<T>& L);                   // å¤åˆ¶æ„é€ å‡½æ•°
-    ~LinearList() {}                                // ææ„å‡½æ•°
-    virtual bool Insert(int i, const T& x) = 0;     // æ’å…¥
-    virtual bool Remove(int i) = 0;                 // åˆ é™¤
-    virtual int Search(T& x) const = 0;             // æœç´¢
-    virtual int Locate(int i) const = 0;            // å®šä½
-    virtual void Sort() = 0;                        // æ’åº
-    virtual bool GetData(int i, T& x) const = 0;    // å–å€¼
-    virtual void SetData(int i, T& x) = 0;          // èµ‹å€¼
-    virtual int Size() const = 0;                   // æ±‚è¡¨æœ€å¤§ç©ºé—´
-    virtual int Length() const = 0;                 // æ±‚è¡¨é•¿åº¦
-    virtual bool IsEmpty() const = 0;               // åˆ¤è¡¨ç©º
-    virtual bool IsFull() const = 0;                // åˆ¤è¡¨æ»¡
-    virtual void Input() = 0;                       // è¾“å…¥
-    virtual void Output() = 0;                      // è¾“å‡º
+    LinearList() {}                              // ¹¹Ôìº¯Êı
+    ~LinearList() {}                             // Îö¹¹º¯Êı
+    virtual bool insert(int i, const T &x) = 0;  // ²åÈë
+    virtual bool remove(int i, T &x) = 0;        // É¾³ı
+    virtual int search(T &x) const = 0;          // ²éÕÒ
+    virtual int locate(int i) const = 0;         // ¶¨Î»
+    virtual void sort() = 0;                     // ÅÅĞò
+    virtual bool getData(int i, T &x) const = 0; // »ñÈ¡Ö¸¶¨Î»ÔªËØÖµ
+    virtual void setData(int i, const T &x) = 0; // ÉèÖÃÖ¸¶¨Î»ÔªËØÖµ
+    virtual int size() const = 0;                // »ñÈ¡´óĞ¡
+    virtual int length() const = 0;              // »ñÈ¡³¤¶È
+    virtual bool isEmpty() const = 0;            // ÅĞ¿Õ
+    virtual bool isFull() const = 0;             // ÅĞÂú
+    virtual void input() = 0;                    // ÊäÈë
+    virtual void output() = 0;                   // Êä³ö
 };
-

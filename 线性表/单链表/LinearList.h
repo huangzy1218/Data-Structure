@@ -7,19 +7,19 @@ template <class T>
 class LinearList
 {
 public:
-    LinearList() {}                                // æ„é€ å‡½æ•°
-    ~LinearList() {}                               // ææ„å‡½æ•°
-    virtual bool insert(int i, const T &x) = 0;    // æ’å…¥
-    virtual bool remove(int i, T &x) = 0;          // åˆ é™¤
-    virtual int search(T &x) const { return -1; }; // æŸ¥æ‰¾
-    int locate(int i) const { return -1; };        // å®šä½
-    virtual void sort() = 0;                       // æ’åº
-    virtual bool getData(int i, T &x) const = 0;   // è·å–æŒ‡å®šä½å…ƒç´ å€¼
-    virtual void setData(int i, const T &x) = 0;   // è®¾ç½®æŒ‡å®šä½å…ƒç´ å€¼
-    virtual int size() const = 0;                  // è·å–å¤§å°
-    virtual int length() const = 0;                // è·å–é•¿åº¦
-    virtual bool isEmpty() const = 0;              // åˆ¤ç©º
-    virtual bool isFull() const = 0;               // åˆ¤æ»¡
-    virtual void input() = 0;                      // è¾“å…¥
-    virtual void output() = 0;                     // è¾“å‡º
+    LinearList() {}                                // ¹¹Ôìº¯Êı
+    ~LinearList() {}                               // Îö¹¹º¯Êı
+    virtual bool insert(int i, const T &x) = 0;    // ²åÈë
+    virtual bool remove(int i, T &x) = 0;          // É¾³ı
+    virtual int search(T &x) const { return -1; }; // ²éÕÒ
+    int locate(int i) const { return -1; };        // ¶¨Î»
+    virtual void sort() = 0;                       // ÅÅĞò
+    virtual bool getData(int i, T &x) const = 0;   // »ñÈ¡Ö¸¶¨Î»ÔªËØÖµ
+    virtual void setData(int i, const T &x) = 0;   // ÉèÖÃÖ¸¶¨Î»ÔªËØÖµ
+    virtual int size() const = 0;                  // »ñÈ¡´óĞ¡
+    virtual int length() const = 0;                // »ñÈ¡³¤¶È
+    virtual bool isEmpty() const = 0;              // ÅĞ¿Õ
+    virtual bool isFull() const = 0;               // ÅĞÂú
+    virtual void input() = 0;                      // ÊäÈë
+    virtual void output() = 0;                     // Êä³ö
 };
