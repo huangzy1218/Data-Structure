@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <iostream>
-#include "LinearList.h"
+#include "../LinearList.h"
 using namespace std;
 template <class T>
 struct LinkNode
