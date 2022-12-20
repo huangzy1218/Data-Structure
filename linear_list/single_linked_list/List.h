@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <iostream>
-#include "../LinearList.h"
+#include "../linearlist.h"
 using namespace std;
 template <class T>
 struct LinkNode
@@ -208,7 +208,7 @@ bool List<T>::insert(int i, const T &x)
     else
     {
         newNode->link = ptr->link; // 新节点的下一个结点为原结点的下一个结点
-        ptr->link = newNode;       //原结点的下一个结点为新结点
+        ptr->link = newNode;       // 原结点的下一个结点为新结点
     }
     return true;
 };
