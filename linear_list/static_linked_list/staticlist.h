@@ -1,58 +1,58 @@
-const int MaxSize = 100;            // é™æ€é“¾è¡¨çš„å¤§å°
+const int MaxSize = 100; // ¾²Ì¬Á´±íµÄ´óĞ¡
 template <class T>
 struct SLinkNode {
-    T data;                         // ç»“ç‚¹æ•°æ®
-    int link;                       // ç»“ç‚¹é“¾æ¥æŒ‡é’ˆ
+    T data; // ½áµãÊı¾İ
+    int link; // ½áµãÁ´½ÓÖ¸Õë
 };
 
 template <class T>
 class StaticList {
-    SLinkNode<T> elem[MaxSize];     
-    int avil;                       // å½“å‰å¯åˆ†é…ç©ºé—´çš„é¦–åœ°å€
+    SLinkNode<T> elem[MaxSize];
+    int avil; // µ±Ç°¿É·ÖÅä¿Õ¼äµÄÊ×µØÖ·
 public:
-    void InitList();                // åˆå§‹åŒ–é“¾è¡¨
-    int Length() const;             // è®¡ç®—é™æ€é“¾è¡¨çš„é•¿åº¦
-    int Search(T x);                // æŸ¥æ‰¾å…·ä½“ç»“ç‚¹
-    int Locate(int i);              // æŸ¥æ‰¾ç¬¬iä¸ªç»“ç‚¹
-    bool Append(T x);               // åœ¨è¡¨å°¾è¿½åŠ ä¸€ä¸ªç»“ç‚¹
-    bool Insert(int i, T x);        // åœ¨ç¬¬iä¸ªç»“ç‚¹åæ’å…¥æ–°ç»“ç‚¹
-    bool Remove(int i);             // åœ¨é™æ€é“¾è¡¨åˆ é™¤ç¬¬iä¸ªç»“ç‚¹
-    bool IsEmpty();                 // åˆ¤ç©º
+    void InitList(); // ³õÊ¼»¯Á´±í
+    int Length() const; // ¼ÆËã¾²Ì¬Á´±íµÄ³¤¶È
+    int Search(T x); // ²éÕÒ¾ßÌå½áµã
+    int Locate(int i); // ²éÕÒµÚi¸ö½áµã
+    bool Append(T x); // ÔÚ±íÎ²×·¼ÓÒ»¸ö½áµã
+    bool Insert(int i, T x); // ÔÚµÚi¸ö½áµãºó²åÈëĞÂ½áµã
+    bool Remove(int i); // ÔÚ¾²Ì¬Á´±íÉ¾³ıµÚi¸ö½áµã
+    bool IsEmpty(); // ÅĞ¿Õ
 };
 
-// åˆå§‹åŒ–é“¾è¡¨
+// ³õÊ¼»¯Á´±í
 template <class T>
 void StaticList<T>::InitList()
 {
-    elem[0].link = -1;              // è®¾ç½®å¤´ç»“ç‚¹
-    avil = 1;                       // ç»“ç‚¹é¦–åœ°å€ä»1å¼€å§‹
+    elem[0].link = -1; // ÉèÖÃÍ·½áµã
+    avil = 1; // ½áµãÊ×µØÖ·´Ó1¿ªÊ¼
     for (int i = 1; i < MaxSize - 1; i++) {
-        elem[i].link = i + 1;       // æ„æˆç©ºé—²é“¾è¡¨ï¼Œä¸‹æ ‡+1ä¸ºé“¾æ¥æŒ‡é’ˆåœ°å€
+        elem[i].link = i + 1; // ¹¹³É¿ÕÏĞÁ´±í£¬ÏÂ±ê+1ÎªÁ´½ÓÖ¸ÕëµØÖ·
     }
-    elem[MaxSize-1].link = -1;      // é“¾è¡¨æ”¶å°¾ 
+    elem[MaxSize - 1].link = -1; // Á´±íÊÕÎ²
 }
 
-// è®¡ç®—é™æ€é“¾è¡¨çš„é•¿åº¦
+// ¼ÆËã¾²Ì¬Á´±íµÄ³¤¶È
 template <class T>
 int StaticList<T>::Length() const
 {
-    int p = elem[0].link;           // æŒ‡å‘å¤´ç»“ç‚¹
+    int p = elem[0].link; // Ö¸ÏòÍ·½áµã
     int count = 0;
-    while (p != -1) {               // é“¾è¡¨ä¸ä¸ºç©ºæˆ–ä¸ä¸ºè¡¨å°¾
+    while (p != -1) { // Á´±í²»Îª¿Õ»ò²»Îª±íÎ²
         p = elem[p].link;
         count++;
     }
-    return count;           
+    return count;
 }
 
-// åˆ¤ç©º
+// ÅĞ¿Õ
 template <class T>
 bool StaticList<T>::IsEmpty()
 {
-    return elem[0].link == -1;  
-} 
+    return elem[0].link == -1;
+}
 
-// æŸ¥æ‰¾å…·ä½“ç»“ç‚¹
+// ²éÕÒ¾ßÌå½áµã
 template <class T>
 int StaticList<T>::Search(T x)
 {
@@ -61,50 +61,50 @@ int StaticList<T>::Search(T x)
         if (elem[p].data == x) {
             break;
         } else {
-            p = elem[p].link;       // æŒ‡å‘ä¸‹ä¸ªç»“ç‚¹
+            p = elem[p].link; // Ö¸ÏòÏÂ¸ö½áµã
         }
     }
     return p;
 }
 
-// å®šä½ç¬¬iä¸ªå…ƒç´ 
+// ¶¨Î»µÚi¸öÔªËØ
 template <class T>
 int StaticList<T>::Locate(int i)
 {
-    if (i < 0) {                    
+    if (i < 0) {
         return -1;
     }
     if (i == 0) {
         return 0;
     }
     int j = 1, p = elem[0].link;
-    while (p != -1 && j < i) {  
-        p = elem[p].link;           // ç”±äºå¯èƒ½å­˜åœ¨éè¡¨å°¾æ’å…¥ï¼Œæ•…ä¸‹æ ‡+1ä¸ä¸€åº”ä¸ºä¸‹ä¸ªå…ƒç´ çš„åœ°å€
+    while (p != -1 && j < i) {
+        p = elem[p].link; // ÓÉÓÚ¿ÉÄÜ´æÔÚ·Ç±íÎ²²åÈë£¬¹ÊÏÂ±ê+1²»Ò»Ó¦ÎªÏÂ¸öÔªËØµÄµØÖ·
         j++;
     }
     return p;
 }
 
-// åœ¨è¡¨å°¾è¿½åŠ ä¸€ä¸ªç»“ç‚¹
+// ÔÚ±íÎ²×·¼ÓÒ»¸ö½áµã
 template <class T>
 bool StaticList<T>::Append(T x)
 {
     if (avi == -1) {
         return false;
     }
-    int q = avil;                   // æŒ‡å‘å½“å‰å…ƒç´ çš„åœ°å€ 1 = elem[1].link = 2ï¼ˆä¸‹ä¸€ä¸ªåˆ†é…çš„åœ°å€ï¼‰
-    avil = elem[avil].link;         // æ›´æ–°å½“å‰ç©ºé—´çš„é¦–åœ°å€
-    elem[q].data = x;               // elem[1].data = x
-    elem[q].link = -1;              // å½“å‰ä¸ºè¡¨å°¾
+    int q = avil; // Ö¸Ïòµ±Ç°ÔªËØµÄµØÖ· 1 = elem[1].link = 2£¨ÏÂÒ»¸ö·ÖÅäµÄµØÖ·£©
+    avil = elem[avil].link; // ¸üĞÂµ±Ç°¿Õ¼äµÄÊ×µØÖ·
+    elem[q].data = x; // elem[1].data = x
+    elem[q].link = -1; // µ±Ç°Îª±íÎ²
     int p = 0;
     while (elem[q].link != -1) {
         p = elem[p].link;
     }
-    elem[p].link = q;         
+    elem[p].link = q;
     return true;
 }
 
-// åœ¨ç¬¬iä¸ªç»“ç‚¹åæ’å…¥æ–°ç»“ç‚¹
+// ÔÚµÚi¸ö½áµãºó²åÈëĞÂ½áµã
 template <class T>
 bool StaticList<T>::Insert(int i, T x)
 {
@@ -112,11 +112,11 @@ bool StaticList<T>::Insert(int i, T x)
     if (p == -1) {
         return false;
     }
-    int q = avil;                   // å¯åˆ†é…çš„é¦–ç»“ç‚¹
-    avil = elem[avil].link;         // æ­¤æ—¶åœ°å€ä¸è¿ç»­
-    elem[q].data = x;               
-    elem[q].link = elem[p].link;    // é“¾å…¥
-    elem[p].link = q;               // içš„ä¸‹ä¸ªç»“ç‚¹ä¸ºæ’å…¥çš„æ–°ç»“ç‚¹
+    int q = avil; // ¿É·ÖÅäµÄÊ×½áµã
+    avil = elem[avil].link; // ´ËÊ±µØÖ·²»Á¬Ğø
+    elem[q].data = x;
+    elem[q].link = elem[p].link; // Á´Èë
+    elem[p].link = q; // iµÄÏÂ¸ö½áµãÎª²åÈëµÄĞÂ½áµã
     return true;
 }
 

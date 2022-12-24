@@ -4,124 +4,136 @@ using namespace std;
 template <class T>
 struct DblNode {
     T data;
-    DblNode<T> *lLink, rLink;											// å‰é©±ï¼ˆå·¦é“¾ï¼‰ï¼Œåç»§ï¼ˆå³é“¾ï¼‰æŒ‡é’ˆ
+    DblNode<T>*lLink, rLink; // Ç°Çı£¨×óÁ´£©£¬ºó¼Ì£¨ÓÒÁ´£©Ö¸Õë
     DblNode(DblNode<T>* left = NULL, DblNode<T>* right = NULL)
-            : lLink(left), rLink(r) {}                                  // æ„é€ å‡½æ•°
+        : lLink(left)
+        , rLink(r)
+    {
+    } // ¹¹Ôìº¯Êı
     DblNode(T value, DblNode<T>* left = NULL, DblNode<T>* right = NULL)
-            : data(T), lLink(left), rLink(r) {}                         // æ„é€ å‡½æ•°
+        : data(T)
+        , lLink(left)
+        , rLink(r)
+    {
+    } // ¹¹Ôìº¯Êı
 };
 
 template <class T>
-class DblList: public LinearList<T> {
+class DblList : public LinearList<T> {
 public:
-	DblList(T uniqueVal);                                        	// æ„é€ å‡½æ•°ï¼Œå»ºç«‹é™„åŠ å¤´ç»“ç‚¹
-    ~DblList();    													// ææ„å‡½æ•°
-	int Length() const;												// è®¡ç®—é“¾è¡¨é•¿åº¦
-	bool IsEmpty(); { return first->rlink == first; }				// åˆ¤ç©ºï¼Œå¤´ç»“ç‚¹çš„ä¸‹ä¸€ä¸ªç»“ç‚¹ä»ä¸ºå¤´ç»“ç‚¹
-	DblNode<T>* GetHead() const { return first; }					// å–é™„åŠ å¤´ç»“ç‚¹åœ°å€
-	void SetHead(DblNode<T>* ptr); { first = ptr; }					// è®¾ç½®å¤´ç»“ç‚¹åœ°å€
-	DblNode<T>* Search(const T& x);									// åœ¨é“¾è¡¨åç»§æ–¹å‘ç»§ç»­å¯»æ‰¾x
-	DblNode<T>* Locate(int i, int d);								// åœ¨é“¾è¡¨å®šä½ç¼–å·ä¸ºiçš„ç»“ç‚¹ï¼Œd=0å‰é©±æ–¹å‘ï¼Œå¦åˆ™åç»§æ–¹å‘
-	bool Insert(int i, const T& x, int d);							// åœ¨ç¬¬iä¸ªå€¼åæ’å…¥æ–°ç»“ç‚¹ï¼Œd=0å‰é©±æ–¹å‘ï¼Œå¦åˆ™åç»§æ–¹å‘
-	bool Remove(int i, T& x, int d);								// åˆ é™¤ç¬¬iä¸ªç»“ç‚¹ï¼Œd=0å‰é©±æ–¹å‘ï¼Œå¦åˆ™åç»§æ–¹å‘
+    DblList(T uniqueVal); // ¹¹Ôìº¯Êı£¬½¨Á¢¸½¼ÓÍ·½áµã
+    ~DblList(); // Îö¹¹º¯Êı
+    int Length() const; // ¼ÆËãÁ´±í³¤¶È
+    bool IsEmpty();
+    {
+        return first->rlink == first;
+    } // ÅĞ¿Õ£¬Í·½áµãµÄÏÂÒ»¸ö½áµãÈÔÎªÍ·½áµã
+    DblNode<T>* GetHead() const { return first; } // È¡¸½¼ÓÍ·½áµãµØÖ·
+    void SetHead(DblNode<T>* ptr);
+    {
+        first = ptr;
+    } // ÉèÖÃÍ·½áµãµØÖ·
+    DblNode<T>* Search(const T& x); // ÔÚÁ´±íºó¼Ì·½Ïò¼ÌĞøÑ°ÕÒx
+    DblNode<T>* Locate(int i, int d); // ÔÚÁ´±í¶¨Î»±àºÅÎªiµÄ½áµã£¬d=0Ç°Çı·½Ïò£¬·ñÔòºó¼Ì·½Ïò
+    bool Insert(int i, const T& x, int d); // ÔÚµÚi¸öÖµºó²åÈëĞÂ½áµã£¬d=0Ç°Çı·½Ïò£¬·ñÔòºó¼Ì·½Ïò
+    bool Remove(int i, T& x, int d); // É¾³ıµÚi¸ö½áµã£¬d=0Ç°Çı·½Ïò£¬·ñÔòºó¼Ì·½Ïò
 private:
-	DblNode<T>* first;	                                                           
+    DblNode<T>* first;
 };
 
-// æ„é€ å‡½æ•°ï¼Œå»ºç«‹é™„åŠ å¤´ç»“ç‚¹
+// ¹¹Ôìº¯Êı£¬½¨Á¢¸½¼ÓÍ·½áµã
 template <class T>
-DblList<T>::DblList(T uniqueVal) 
+DblList<T>::DblList(T uniqueVal)
 {
-	first = new DblNode<T>(uniqueVal);
-	if (first == NULL) {
-		cerr << "å†…å­˜åˆ†é…å¤±è´¥" << endl;
-		exit(1);
-	}
-	first->rLink = first->lLink = first;							// å‰é©±åç»§å‡ä¸ºå…¶æœ¬èº«ï¼Œç±»ä¼¼äºå¾ªç¯é“¾è¡¨
+    first = new DblNode<T>(uniqueVal);
+    if (first == NULL) {
+        cerr << "ÄÚ´æ·ÖÅäÊ§°Ü" << endl;
+        exit(1);
+    }
+    first->rLink = first->lLink = first; // Ç°Çıºó¼Ì¾ùÎªÆä±¾Éí£¬ÀàËÆÓÚÑ­»·Á´±í
 }
 
-// è®¡ç®—é“¾è¡¨é•¿åº¦
+// ¼ÆËãÁ´±í³¤¶È
 template <class T>
 int DblList<T>::Length() const
 {
-	DblNode<T>* current = first->rLink;
-	int count = 0;
-	while (current != first) {
-		current = current->rLink;									// ç±»ä¼¼äºå¾ªç¯é“¾è¡¨ï¼Œæˆ–å•é“¾è¡¨ï¼Œå°†å…¶rLinkè§†ä¸ºå•é“¾è¡¨ä¸­çš„link
-		++count;
-	}
-	return count;
+    DblNode<T>* current = first->rLink;
+    int count = 0;
+    while (current != first) {
+        current = current->rLink; // ÀàËÆÓÚÑ­»·Á´±í£¬»òµ¥Á´±í£¬½«ÆärLinkÊÓÎªµ¥Á´±íÖĞµÄlink
+        ++count;
+    }
+    return count;
 }
 
-// åœ¨é“¾è¡¨å®šä½ç¼–å·ä¸ºiçš„ç»“ç‚¹ï¼Œd=0å‰é©±æ–¹å‘ï¼Œå¦åˆ™åç»§æ–¹å‘
+// ÔÚÁ´±í¶¨Î»±àºÅÎªiµÄ½áµã£¬d=0Ç°Çı·½Ïò£¬·ñÔòºó¼Ì·½Ïò
 template <class T>
 DblNode<T>* DblList<T>::Locate(int i, int d)
 {
-	if (first->rLink == first || i == 0) {							// è‹¥å¯»æ‰¾å¤´ç»“ç‚¹æˆ–é“¾è¡¨ä¸ºç©º
-		return first;
-	}
-	DblNode<T>* current;
-	if (d == 0) {													// å½“å‰ç»“ç‚¹æŒ‡å‘å¤´ç»“ç‚¹çš„å‰é©±ç»“ç‚¹
-		current = first->lLink;
-	} else {
-		current = first->rLink;										// å½“å‰ç»“ç‚¹æŒ‡å‘å¤´ç»“ç‚¹çš„åç»§ç»“ç‚¹
-	}
-	for (int j = 1; j < i; j++) {
-		if (current == first) {										// è¶…å‡ºç´¢å¼•èŒƒå›´
-			break;
-		} else if (d == 0) {
-			current = current->lLink;								// å‰é©±å¯»æ‰¾
-		} else {
-			current = current->rLink;								// åç»§å¯»æ‰¾
-		}
-	}
-	
-	if (current != first) {
-		return current;
-	} else {
-		return NULL;
-	}
+    if (first->rLink == first || i == 0) { // ÈôÑ°ÕÒÍ·½áµã»òÁ´±íÎª¿Õ
+        return first;
+    }
+    DblNode<T>* current;
+    if (d == 0) { // µ±Ç°½áµãÖ¸ÏòÍ·½áµãµÄÇ°Çı½áµã
+        current = first->lLink;
+    } else {
+        current = first->rLink; // µ±Ç°½áµãÖ¸ÏòÍ·½áµãµÄºó¼Ì½áµã
+    }
+    for (int j = 1; j < i; j++) {
+        if (current == first) { // ³¬³öË÷Òı·¶Î§
+            break;
+        } else if (d == 0) {
+            current = current->lLink; // Ç°ÇıÑ°ÕÒ
+        } else {
+            current = current->rLink; // ºó¼ÌÑ°ÕÒ
+        }
+    }
+
+    if (current != first) {
+        return current;
+    } else {
+        return NULL;
+    }
 }
 
-// åœ¨ç¬¬iä¸ªå€¼åæ’å…¥æ–°ç»“ç‚¹ï¼Œd=0å‰é©±æ–¹å‘ï¼Œå¦åˆ™åç»§æ–¹å‘
+// ÔÚµÚi¸öÖµºó²åÈëĞÂ½áµã£¬d=0Ç°Çı·½Ïò£¬·ñÔòºó¼Ì·½Ïò
 template <class T>
-bool *DblList<T>::Insert(int i, const T& x, int d)
+bool* DblList<T>::Insert(int i, const T& x, int d)
 {
-	DblNode<T>* current = Locate(i, d);								// å®šä½å½“å‰ç»“ç‚¹
-	if (current == NULL) {
-		return false;
-	}
-	DblNode<T>* newNode = DblNode<T>(x);
-	if (newNode == NULL) {
-		cerr << "å†…å­˜åˆ†é…å¤±è´¥" << endl;
-		exit(0);
-	}
-	if (d == 0) {													// å‰é©±æ’å…¥
-		newNode->lLink = current->lLink;							// æ–°ç»“ç‚¹çš„å‰é©±ç»“ç‚¹ä¸ºå½“å‰ç»“ç‚¹çš„å‰é©±ç»“ç‚¹
-		current->lLink = newNode;									// å½“å‰ç»“ç‚¹çš„å‰é©±ç»“ç‚¹ä¸ºæ–°èŠ‚ç‚¹
-		newNode->lLink->rLink = newNode;							// æ–°èŠ‚ç‚¹çš„å‰é©±ç»“ç‚¹çš„åç»§ç»“ç‚¹ä¸ºå…¶æœ¬èº«
-		newNode->rLink = current;									// æ–°èŠ‚ç‚¹çš„åç»§ç»“ç‚¹ä¸ºå½“å‰ç»“ç‚¹
-	} else {														// åç»§æ’å…¥
-		newNode->rLink = current->rLink;							// æ–°ç»“ç‚¹çš„åç»§ç»“ç‚¹ä¸ºå½“å‰ç»“ç‚¹çš„åç»§ç»“ç‚¹
-		current->rLink = newNode;									// æ–°ç»“ç‚¹çš„åç»§ç»“ç‚¹ä¸ºå½“å‰ç»“ç‚¹çš„åç»§ç»“ç‚¹
-		newNode->rLink->lLink = newNode;							// æ–°ç»“ç‚¹çš„åç»§ç»“ç‚¹çš„å‰é©±ç»“ç‚¹ä¸ºå…¶æœ¬èº«
-		newNode->lLink = current;									// æ–°èŠ‚ç‚¹çš„å‰é©±ç»“ç‚¹ä¸ºå½“å‰ç»“ç‚¹ï¼ˆé¦–å°¾å‘¼åº”ï¼‰
-	}
-	return true;
+    DblNode<T>* current = Locate(i, d); // ¶¨Î»µ±Ç°½áµã
+    if (current == NULL) {
+        return false;
+    }
+    DblNode<T>* newNode = DblNode<T>(x);
+    if (newNode == NULL) {
+        cerr << "ÄÚ´æ·ÖÅäÊ§°Ü" << endl;
+        exit(0);
+    }
+    if (d == 0) { // Ç°Çı²åÈë
+        newNode->lLink = current->lLink; // ĞÂ½áµãµÄÇ°Çı½áµãÎªµ±Ç°½áµãµÄÇ°Çı½áµã
+        current->lLink = newNode; // µ±Ç°½áµãµÄÇ°Çı½áµãÎªĞÂ½Úµã
+        newNode->lLink->rLink = newNode; // ĞÂ½ÚµãµÄÇ°Çı½áµãµÄºó¼Ì½áµãÎªÆä±¾Éí
+        newNode->rLink = current; // ĞÂ½ÚµãµÄºó¼Ì½áµãÎªµ±Ç°½áµã
+    } else { // ºó¼Ì²åÈë
+        newNode->rLink = current->rLink; // ĞÂ½áµãµÄºó¼Ì½áµãÎªµ±Ç°½áµãµÄºó¼Ì½áµã
+        current->rLink = newNode; // ĞÂ½áµãµÄºó¼Ì½áµãÎªµ±Ç°½áµãµÄºó¼Ì½áµã
+        newNode->rLink->lLink = newNode; // ĞÂ½áµãµÄºó¼Ì½áµãµÄÇ°Çı½áµãÎªÆä±¾Éí
+        newNode->lLink = current; // ĞÂ½ÚµãµÄÇ°Çı½áµãÎªµ±Ç°½áµã£¨Ê×Î²ºôÓ¦£©
+    }
+    return true;
 }
 
-// åˆ é™¤ç¬¬iä¸ªç»“ç‚¹ï¼Œd=0å‰é©±æ–¹å‘ï¼Œå¦åˆ™åç»§æ–¹å‘
+// É¾³ıµÚi¸ö½áµã£¬d=0Ç°Çı·½Ïò£¬·ñÔòºó¼Ì·½Ïò
 template <class T>
 bool DblList<T>::Remove(int i, T& x, int d)
 {
-	DblNode<T>* current = Locate(i, d);
-	if (current == NULL) {
-		return false;
-	}
-	current->rLink->lLink = current->lLink;
-	current->lLink->rLink = current->rLink;
-	x = current->data;
-	delete current;
-	return true;
+    DblNode<T>* current = Locate(i, d);
+    if (current == NULL) {
+        return false;
+    }
+    current->rLink->lLink = current->lLink;
+    current->lLink->rLink = current->rLink;
+    x = current->data;
+    delete current;
+    return true;
 }
-\

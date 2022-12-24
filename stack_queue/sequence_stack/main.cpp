@@ -7,8 +7,7 @@ int main(void)
     cout << "请输入插入元素个数及元素值" << endl;
     int n, elem;
     cin >> n;
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         cin >> elem;
         ss.push(elem);
     }

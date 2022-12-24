@@ -1,14 +1,13 @@
-#include <iostream>
-#include <cstdlib>
 #include "../linearlist.h"
+#include <cstdlib>
+#include <iostream>
 using namespace std;
 template <class T>
-struct CircLinkNode
-{
+struct CircLinkNode {
     T data;
-    CircLinkNode<T> *link;
-    CircLinkNode(CircLinkNode<T> *ptr = NULL) { link = ptr; }
-    CircLinkNode(const T &item, CircCircLinkNode *ptr = NULL)
+    CircLinkNode<T>* link;
+    CircLinkNode(CircLinkNode<T>* ptr = NULL) { link = ptr; }
+    CircLinkNode(const T& item, CircCircLinkNode* ptr = NULL)
     {
         data = item;
         link = ptr;
@@ -16,33 +15,32 @@ struct CircLinkNode
 };
 
 template <class T>
-class CircList : public LinearCircList<T>
-{
-    CircList()                                           // æž„é€ å‡½æ•?
-        CircList(const T &x)                             // æž„é€ å‡½æ•?
-        CircList(CircList<T> &L);                        // å¤åˆ¶æž„é€ å‡½æ•?
-    ~CircList() { makeEmpty(); }                         // æžæž„å‡½æ•°
-    void MakeEmpty();                                    // å°†é“¾è¡¨ç½®ç©?
-    int Length() const;                                  // è®¡ç®—é“¾è¡¨é•¿åº¦
-    CircLinkNode<T> *GetHead() const { return first; }   // è¿”å›žå¤´ç»“ç‚¹åœ°å€
-    CircLinkNode<T> *Search(T x);                        // æœç´¢å«xçš„å…ƒç´ çš„åœ°å€
-    CircLinkNode<T> *Locate(int i);                      // å®šä½ç¬¬iä¸ªå…ƒç´?
-    bool GetData(int i, T &x) const;                     // å–å‡ºç¬¬iä¸ªå…ƒç´ å€?
-    void SetData(int i, T &x);                           // å°†ç¬¬iä¸ªå…ƒç´ å€¼è®¾ä¸ºx
-    bool Insert(int i, T &x);                            // åœ¨ç¬¬iä¸ªå…ƒç´ åŽæ’å…¥x
-    bool Remove(int i, T &x);                            // åˆ é™¤ç¬¬iä¸ªå…ƒç´ ï¼Œå¹¶è¿”å›žå…¶å€¼x
-    bool IsEmpty() const { return first->link == NULL; } // åˆ¤è¡¨ç©?
-    bool IsFull() const { return false; }                // åˆ¤è¡¨æ»?
-    void Sort();                                         // æŽ’åº
-    void Input();                                        // è¾“å…¥
-    void Output();                                       // è¾“å‡º
-    CircList<T> &operator=(CircList<T> &L);              // é‡è½½å‡½æ•°ï¼šèµ‹å€?
+class CircList : public LinearCircList<T> {
+    CircList() // ¹¹Ôìº¯Êý
+        CircList(const T& x) // ¹¹Ôìº¯Êý
+        CircList(CircList<T>& L); // ¸´ÖÆ¹¹Ôìº¯Êý
+    ~CircList() { makeEmpty(); } // Îö¹¹º¯Êý
+    void MakeEmpty(); // ½«Á´±íÖÃ¿Õ
+    int Length() const; // ¼ÆËãÁ´±í³¤¶È
+    CircLinkNode<T>* GetHead() const { return first; } // ·µ»ØÍ·½áµãµØÖ·
+    CircLinkNode<T>* Search(T x); // ËÑË÷º¬xµÄÔªËØµÄµØÖ·
+    CircLinkNode<T>* Locate(int i); // ¶¨Î»µÚi¸öÔªËØ
+    bool GetData(int i, T& x) const; // È¡³öµÚi¸öÔªËØ
+    void SetData(int i, T& x); // ½«µÚi¸öÔªËØÖµÉèÎªx
+    bool Insert(int i, T& x); // ÔÚµÚi¸öÔªËØºó²åÈëx
+    bool Remove(int i, T& x); // É¾³ýµÚi¸öÔªËØ£¬²¢·µ»ØÆäÖµx
+    bool IsEmpty() const { return first->link == NULL; } // ÅÐ±í¿Õ
+    bool IsFull() const { return false; } // ÅÐ±íÂú
+    void Sort(); // ÅÅÐò
+    void Input(); // ÊäÈë
+    void Output(); // Êä³ö
+    CircList<T>& operator=(CircList<T>& L); // ÖØÔØº¯Êý£º¸³Öµ
 protected:
-    CircLinkNode<T> *first; // å¤´ç»“ç‚?
-    CircLinkNode<T> *last;  // å°¾ç»“ç‚¹ï¼Œä¸å¿…è¦?
+    CircLinkNode<T>* first; // Í·½Úµã
+    CircLinkNode<T>* last; // Î²½Úµã
 };
 
-// æž„é€ å‡½æ•?
+// ¹¹Ôìº¯Êý
 template <class T>
 CircList<T>::CircList()
 {
@@ -50,178 +48,152 @@ CircList<T>::CircList()
     first->link = first;
 }
 
-// æž„é€ å‡½æ•?
+// ¹¹Ôìº¯Êý
 template <class T>
-CircList<T>::CircList(const T &x)
+CircList<T>::CircList(const T& x)
 {
     first = new CircLinkNode<T>(x);
     first->link = first;
 }
 
-// å¤åˆ¶æž„é€ å‡½æ•?
+// ¸´ÖÆ¹¹Ôìº¯Êý
 template <class T>
-CircList<T>::CircList(CircList<T> &L)
+CircList<T>::CircList(CircList<T>& L)
 {
     T value;
-    CircLinkNode<T> *srcptr = L.GetHead();      // æŒ‡å‘æºé“¾è¡?
-    CircLinkNode<T> *destptr = this->GetHead(); // æŒ‡å‘å½“å‰é“¾è¡¨
+    CircLinkNode<T>* srcptr = L.GetHead(); // Ö¸ÏòÔ´Á´??
+    CircLinkNode<T>* destptr = this->GetHead(); // Ö¸Ïòµ±Ç°Á´±í
 
-    while (srcptr->link != last)
-    { // ä¾æ¬¡å¤åˆ¶
+    while (srcptr->link != last) { // ÒÀ´Î¸´ÖÆ
         value = srcptr->link->data;
         destptr->link = new CircLinkNode<T>(data);
         srcptr = srcptr->link;
         destptr = destptr->link;
     }
-    ,
-        destptr->link = first; // æ ‡å¿—é“¾è¡¨å°?
+    destptr->link = first; // ±êÖ¾Á´±í¿Õ
 }
-// å°†é“¾è¡¨ç½®ç©?
+
+// ½«Á´±íÖÃ¿Õ
 template <class T>
 void CircList<T>::MakeEmpty()
 {
-    CircLinkNode<T> *q; // è®°å½•åˆ é™¤ç»“ç‚¹
-    while (first->link != first)
-    {
+    CircLinkNode<T>* q; // ¼ÇÂ¼É¾³ý½áµã
+    while (first->link != first) {
         q = first->next;
-        first->link = q->link; // å¤´ç»“ç‚¹çš„ä¸‹ä¸ªç»“ç‚¹æŒ‡å‘åˆ é™¤ç»“ç‚¹çš„ä¸‹ä¸€ä¸ªï¼Œè‹¥ä¸ºNULLç±»ä¼¼
+        first->link = q->link; // Í·½áµãµÄÏÂ¸ö½áµãÖ¸ÏòÉ¾³ý½áµãµÄÏÂÒ»¸ö£¬ÈôÎªNULLÀàËÆ
         delete q;
     }
 }
 
-// è®¡ç®—é“¾è¡¨é•¿åº¦
+// ¼ÆËãÁ´±í³¤¶È
 template <class T>
 int CircList<T>::Length() const
 {
-    int count = 0; // è®¡ç®—è¡¨é•¿
-    CircLinkNode<T> *count = first->link;
+    int count = 0; // ¼ÆËã±í³¤
+    CircLinkNode<T>* count = first->link;
 
-    while (ptr != first)
-    {
+    while (ptr != first) {
         ++count;
     }
     return count;
 }
 
-// æœç´¢å«xçš„å…ƒç´ çš„åœ°å€
+// ËÑË÷º¬xµÄÔªËØµÄµØÖ·
 template <class T>
-CircLinkNode<T> *Search(T x)
+CircLinkNode<T>* Search(T x)
 {
-    CircLinkNode<T> *ptr = first->link;
+    CircLinkNode<T>* ptr = first->link;
 
-    while (ptr != first)
-    {
-        if (ptr->data == x)
-        {
+    while (ptr != first) {
+        if (ptr->data == x) {
             break;
-        }
-        else
-        {
+        } else {
             ptr = ptr->link;
         }
     }
-    return ptr; // å•ä¸€å‡ºå£åŽŸåˆ™
+    return ptr; // µ¥Ò»³ö¿ÚÔ­Ôò
 }
 
-// å®šä½ç¬¬iä¸ªå…ƒç´?
+// ¶¨Î»µÚi¸öÔªËØ
 template <class T>
-CircLinkNode<T> *CircList<T>::Locate(int i)
+CircLinkNode<T>* CircList<T>::Locate(int i)
 {
-    if (i < 0)
-    { // ä¸‹æ ‡ä¸åˆæ³?
+    if (i < 0) { // ÏÂ±ê²»ºÏ·¨
         return NULL;
     }
-    int count = 0; // è®°å½•å½“å‰å…ƒç´ ä¸‹æ ‡
-    CircLinkNode<T> *ptr = first->link;
-    while (ptr != first && count < i)
-    { // æ³¨æ„é€»è¾‘é¡ºåº
+    int count = 0; // ¼ÇÂ¼µ±Ç°ÔªËØÏÂ±ê
+    CircLinkNode<T>* ptr = first->link;
+    while (ptr != first && count < i) { // ×¢ÒâÂß¼­Ë³Ðò
         ptr = ptr->link;
         ++count;
     }
     return ptr;
 }
-// å–å‡ºç¬¬iä¸ªå…ƒç´ å€?
+// È¡³öµÚi¸öÔªËØËØ
 template <class T>
-bool CircList<T>::GetData(int i, T &x) const
+bool CircList<T>::GetData(int i, T& x) const
 {
-    if (i < 0)
-    {
+    if (i < 0) {
         return false;
     }
-    CircLinkNode *ptr = Locate(i); // å€ŸåŠ©å·²æœ‰å‡½æ•°å®žçŽ°å®šä½
-    if (ptr != first)
-    {
+    CircLinkNode* ptr = Locate(i); // ½èÖúÒÑÓÐº¯ÊýÊµÏÖ¶¨Î»
+    if (ptr != first) {
         x = ptr->data;
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
 
-// å°†ç¬¬iä¸ªå…ƒç´ å€¼è®¾ä¸ºx
+// ½«µÚi¸öÔªËØÖµÉèÎªx
 template <class T>
-void CircList<T>::SetData(int i, T &x)
+void CircList<T>::SetData(int i, T& x)
 {
-    if (i < 0)
-    {
+    if (i < 0) {
         return;
     }
-    CircLinkNode *ptr = Locate(i); // å€ŸåŠ©å·²æœ‰å‡½æ•°å®žçŽ°å®šä½
-    if (ptr != first)
-    {
+    CircLinkNode* ptr = Locate(i); // ½èÖúÒÑÓÐº¯ÊýÊµÏÖ¶¨Î»
+    if (ptr != first) {
         ptr->data = x;
-    }
-    else
-    {
+    } else {
         return;
     }
 }
 
-// åœ¨ç¬¬iä¸ªå…ƒç´ åŽæ’å…¥x
+// ÔÚµÚi¸öÔªËØºó²åÈëx
 template <class T>
-bool CircList<T>::Insert(int i, T &x)
+bool CircList<T>::Insert(int i, T& x)
 {
-    if (i < 0)
-    {
+    if (i < 0) {
         return false;
     }
-    CircLinkNode<T> *ptr = Locate(i);
-    if (ptr == first)
-    { // ä½äºŽè¡¨å°¾ä¹‹åŽï¼Œæ— æ³•æ’å…?
+    CircLinkNode<T>* ptr = Locate(i);
+    if (ptr == first) { // Î»ÓÚ±íÎ²Ö®ºó£¬ÎÞ·¨²å??
         return false;
     }
-    CircLinkNode<T> *newNode = new CircLinkNode(x);
-    if (newNode == NULL)
-    {
-        cerr << "å†…å­˜åˆ†é…å¤±è´¥" << endl;
+    CircLinkNode<T>* newNode = new CircLinkNode(x);
+    if (newNode == NULL) {
+        cerr << "ÄÚ´æ·ÖÅäÊ§°Ü" << endl;
         exit(1);
-    }
-    else
-    {
+    } else {
         newNode->link = ptr->link;
         ptr->link = newNode;
     }
     return true;
 }
 
-// åˆ é™¤ç¬¬iä¸ªå…ƒç´ ï¼Œå¹¶è¿”å›žå…¶å€¼x
+// É¾³ýµÚi¸öÔªËØ£¬²¢·µ»ØÆäÖµx
 template <class T>
-bool CircList<T>::Remove(int i, T &x)
+bool CircList<T>::Remove(int i, T& x)
 {
-    if (i < 0)
-    {
+    if (i < 0) {
         return false;
     }
-    CircLinkNode<T> *current = Locate(i - 1); // åˆ é™¤å…ƒç´ çš„å‰ä¸€ä¸ªç»“ç‚?
-    if (current == first || current->link == first)
-    { // ä½äºŽè¡¨å°¾ä¹‹åŽï¼Œæ— æ³•åˆ é™?
+    CircLinkNode<T>* current = Locate(i - 1); // É¾³ýÔªËØµÄÇ°Ò»¸ö½Úµã
+    if (current == first || current->link == first) { // Î»ÓÚ±íÎ²Ö®ºó£¬ÎÞ·¨É¾³ý
         return false;
-    }
-    else
-    {
-        CircLinkNode<T> *delPtr = current->link;
+    } else {
+        CircLinkNode<T>* delPtr = current->link;
         current->link = delPtr->link;
         x = delPtr->data;
         delete delPtr;
@@ -229,34 +201,32 @@ bool CircList<T>::Remove(int i, T &x)
     }
 }
 
-// è¾“å‡º
+// Êä³ö
 template <class T>
 void CircList<T>::Output()
 {
-    CircLinkNode<T> *current = first->link;
+    CircLinkNode<T>* current = first->link;
 
-    while (current != first)
-    { // æ ¼å¼åŒ–è¾“å‡?
+    while (current != first) { // ¸ñÊ½»¯Êä³ö
         cout << current->data << " ";
         current = current->link;
     }
     cout << endl;
 }
 
-// è¾“å…¥
+// ÊäÈë
 template <class T>
 void CircList<T>::Input()
 {
     int n;
     T x;
-    cout << "å¼€å§‹å»ºç«‹å¾ªçŽ¯é“¾è¡¨ï¼Œè¯·è¾“å…¥è¡¨ä¸­å…ƒç´ ä¸ªæ•?" << endl;
+    cout << "¿ªÊ¼½¨Á¢Ñ­»·Á´±í£¬ÇëÊäÈë±íÖÐÔªËØ¸öÊý?" << endl;
     cin >> n;
-    CircLinkNode<T> *current = head; //  ä¸æ–­åˆ›å»ºæ–°ç»“ç‚¹ä¿å­˜è¾“å…¥æ•°æ?
-    while (n--)
-    {
+    CircLinkNode<T>* current = head; //  ²»¶Ï´´½¨ÐÂ½áµã±£´æÊäÈëÊýÖµ
+    while (n--) {
         cin >> x;
         current->link = new CircLinkNode<T>(x);
         current = current->link;
     }
     current->link = first;
-}
+};

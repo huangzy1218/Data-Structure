@@ -8,8 +8,7 @@ int main(void)
     cout << "入队：" << endl;
     cout << "请输入插入元素个数及元素值" << endl;
     cin >> n;
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         cin >> elem;
         lq.enQueue(elem);
     }

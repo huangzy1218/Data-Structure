@@ -1,22 +1,21 @@
+#include "Queue.h"
 #include <cassert>
 #include <iostream>
-#include "Queue.h"
 using namespace std;
 template <class T>
 class SeqQueue;
 template <class T>
-ostream &operator<<(ostream &os, SeqQueue<T> &Q);
+ostream& operator<<(ostream& os, SeqQueue<T>& Q);
 template <class T>
-class SeqQueue : public Queue<T>
-{
+class SeqQueue : public Queue<T> {
 public:
-    SeqQueue(int size = SIZE);                                       // 构造函数
-    ~SeqQueue() { delete[] elements; }                               // 析构函数
-    bool enQueue(const T &x);                                        // 新元素x进对列
-    bool deQueue(T &x);                                              // 新元素出队列
-    bool getFront(T &x) const;                                       // 读取头节点元素值
+    SeqQueue(int size = SIZE); // 构造函数
+    ~SeqQueue() { delete[] elements; } // 析构函数
+    bool enQueue(const T& x); // 新元素x进对列
+    bool deQueue(T& x); // 新元素出队列
+    bool getFront(T& x) const; // 读取头节点元素值
     bool isEmpty() const { return (front == rear) ? true : false; }; // 判空
-    bool isFull() const                                              // 判满
+    bool isFull() const // 判满
     {
         return ((rear + 1) % maxSize == front) ? true : false;
     }
@@ -26,17 +25,20 @@ public:
     }
     void makeEmpty() { front = rear = 0; } // 置空
     template <class U>
-    friend ostream &operator<<(ostream &os, SeqQueue<U> &Q);
+    friend ostream& operator<<(ostream& os, SeqQueue<U>& Q);
 
 protected:
     int rear, front;
-    T *elements;
+    T* elements;
     int maxSize;
 };
 
 // 构造函数
 template <class T>
-SeqQueue<T>::SeqQueue(int size) : front(0), rear(0), maxSize(size)
+SeqQueue<T>::SeqQueue(int size)
+    : front(0)
+    , rear(0)
+    , maxSize(size)
 {
     elements = new T[maxSize];
     assert(elements != NULL);
@@ -44,7 +46,7 @@ SeqQueue<T>::SeqQueue(int size) : front(0), rear(0), maxSize(size)
 
 // 入队
 template <class T>
-bool SeqQueue<T>::enQueue(const T &x)
+bool SeqQueue<T>::enQueue(const T& x)
 {
     if (isFull()) // 队满
     {
@@ -57,10 +59,9 @@ bool SeqQueue<T>::enQueue(const T &x)
 
 // 获取队头元素
 template <class T>
-bool SeqQueue<T>::getFront(T &x) const
+bool SeqQueue<T>::getFront(T& x) const
 {
-    if (isEmpty())
-    {
+    if (isEmpty()) {
         return false;
     }
     x = elements[front];
@@ -69,10 +70,9 @@ bool SeqQueue<T>::getFront(T &x) const
 
 // 出队列
 template <class T>
-bool SeqQueue<T>::deQueue(T &x)
+bool SeqQueue<T>::deQueue(T& x)
 {
-    if (isEmpty())
-    {
+    if (isEmpty()) {
         return false;
     }
     x = elements[front];
@@ -82,11 +82,10 @@ bool SeqQueue<T>::deQueue(T &x)
 
 // 输出运算符重载
 template <class T>
-ostream &operator<<(ostream &os, SeqQueue<T> &Q)
+ostream& operator<<(ostream& os, SeqQueue<T>& Q)
 {
     os << "front = " << Q.front << ", rear = " << Q.rear << endl;
-    for (int i = Q.front; i != Q.rear; i = (i + 1) % Q.maxSize)
-    {
+    for (int i = Q.front; i != Q.rear; i = (i + 1) % Q.maxSize) {
         os << Q.elements[i] << " ";
     }
     os << endl;

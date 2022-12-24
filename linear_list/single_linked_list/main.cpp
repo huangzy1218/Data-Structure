@@ -44,13 +44,10 @@ int main(void)
     cout << "查找：" << endl;
     cout << "请输入所要查找的元素：" << endl;
     cin >> value;
-    LinkNode<int> *ptr = l.search(value);
-    if (ptr == NULL)
-    {
+    LinkNode<int>* ptr = l.search(value);
+    if (ptr == NULL) {
         cout << "未查询到该元素" << endl;
-    }
-    else
-    {
+    } else {
         cout << "该元素存在" << endl;
     }
 

@@ -45,12 +45,9 @@ int main(void)
     cout << "请输入所要查找的元素：" << endl;
     cin >> value;
     pos = sl.search(value);
-    if (pos == -1)
-    {
+    if (pos == -1) {
         cout << "未查询到该元素" << endl;
-    }
-    else
-    {
+    } else {
         cout << "该元素存在" << endl;
     }
 
