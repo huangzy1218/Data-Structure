@@ -1,4 +1,7 @@
+#include <cstring>
 #include <iostream>
+#include <string>
+using namespace std;
 const int maxSize = 256;
 struct HuffmanNode {
     int weight; // 权值
@@ -27,9 +30,9 @@ HuffmanCode::HuffmanCode(string str)
     int charCounter[maxSize]; // 存储每个字符出现的个数
     huffmanTree = new HuffmanNode[maxSize];
 
-    for (i = 0; i < (2 * len - 1); i++) {
+    for (int i = 0; i < (2 * len - 1); i++) {
         huffmanTree[i].leftChild = huffmanTree[i].rightChild = huffmanTree[i].parent = -1;
-        HuffmanTree[i].code = "";
+        huffmanTree[i].code = "";
     }
 
     memset(charCounter, 0, sizeof(charCounter));
@@ -44,8 +47,8 @@ HuffmanCode::HuffmanCode(string str)
             leafSize++;
         }
     }
-    int first, int second;
-    for (i = leafSize; i < (2 * leafSize - 1); i++) {
+    int first, second;
+    for (int i = leafSize; i < (2 * leafSize - 1); i++) { // 遍历leafSize - 1次
         getMin(first, second, i); // 选取较小的两个元素
         merge(first, second, i); // 合并
     }
@@ -56,19 +59,19 @@ void HuffmanCode::getMin(int& first, int& second, int parent)
 {
     int weight = 0;
     for (int i = 0; i < parent; i++) {
-        if (huffmanTree[i].parent != -1)
+        if (huffmanTree[i].parent != -1) // 已选过，直接跳过
             continue;
-        if (weight == 0) {
+        if (weight == 0) { // 第一次选
             weight = huffmanTree[i].weight;
             first = i;
-        } else if (huffmanTree[i].weight < weight) {
+        } else if (huffmanTree[i].weight < weight) { // 找到最小的权值
             weight = huffmanTree[i].weight;
             first = i;
         }
     }
     weight = 0;
     for (int i = 0; i < parent; i++) {
-        if (huffmanTree[i].parent != -1 || i == first)
+        if (huffmanTree[i].parent != -1 || i == first) // 已选过，直接跳过
             continue;
         if (weight == 0) {
             weight = huffmanTree[i].weight;
@@ -97,10 +100,12 @@ void HuffmanCode::encode()
         int j = i;
         code = "";
         while (huffmanTree[j].parent != -1) {
+            int parent = huffmanTree[j].parent;
             if (j == huffmanTree[parent].leftChild)
                 code += "0";
             else
                 code += "1";
+            j = parent; // 上移到父结点
         }
         for (int k = code.size() - 1; k >= 0; k--) {
             huffmanTree[i].code += code[k];
@@ -114,11 +119,12 @@ void HuffmanCode::decode(string str)
 {
     string decode, temp;
     int len = str.size();
+    int i, j;
     decode = temp = "";
-    for (int i = 0; i < str.size(); i++) {
+    for (i = 0; i < str.size(); i++) {
         temp += str[i];
-        for (int j = 0; j < leafSize; j++) {
-            if (huffmanTree[j].code == temp) {
+        for (j = 0; j < leafSize; j++) {
+            if (huffmanTree[j].code == temp) { // 在叶子结点中找到对应的编码
                 decode += huffmanTree[j].ch;
                 temp = "";
                 break;
