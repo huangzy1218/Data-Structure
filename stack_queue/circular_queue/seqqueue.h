@@ -1,3 +1,16 @@
+/**
+ * @file seqqueue.h
+ * @author Huang Z.Y.
+ * @brief 循环队列(sequence queue)将顺序队列首尾相连，把存储队列元素的表从逻辑上看成一个环，成为循环队列。
+ * 其克服了循环队列假溢出的问题，有效提高了空间利用率。
+ * @version 0.1
+ * @date 2023-01-03
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+#ifndef SEQQUEUE_H
+#define SEQQUEUE_H
 #include "Queue.h"
 #include <cassert>
 #include <iostream>
@@ -28,7 +41,7 @@ public:
     friend ostream& operator<<(ostream& os, SeqQueue<U>& Q);
 
 protected:
-    int rear, front;
+    int rear, front; // 头尾指针
     T* elements;
     int maxSize;
 };
@@ -48,8 +61,7 @@ SeqQueue<T>::SeqQueue(int size)
 template <class T>
 bool SeqQueue<T>::enQueue(const T& x)
 {
-    if (isFull()) // 队满
-    {
+    if (isFull()) { // 队满
         return false;
     }
     elements[rear] = x;
@@ -91,3 +103,5 @@ ostream& operator<<(ostream& os, SeqQueue<T>& Q)
     os << endl;
     return os;
 };
+
+#endif

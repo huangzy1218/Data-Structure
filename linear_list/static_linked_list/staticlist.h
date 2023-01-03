@@ -1,4 +1,20 @@
-const int MaxSize = 100; // 静态链表的大小
+/**
+ * @file staticlist.cpp
+ * @author Huang Z.Y.
+ * @brief 静态链表(static linked list)是一种更为简单的链表结构，其使用一维数组来进行描述。
+ * 这种描述方法便于在没有指针类型的高级程序设计语言中使用链表结构。
+ * @version 0.1
+ * @date 2023-01-03
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
+#ifndef STATICLIST_H
+#define STATICLIST_H
+#include <iostream>
+using namespace std;
+const int maxSize = 100; // 静态链表的大小
 template <class T>
 struct SLinkNode {
     T data; // 结点数据
@@ -7,34 +23,40 @@ struct SLinkNode {
 
 template <class T>
 class StaticList {
-    SLinkNode<T> elem[MaxSize];
+    SLinkNode<T>* elem;
     int avil; // 当前可分配空间的首地址
 public:
-    void InitList(); // 初始化链表
-    int Length() const; // 计算静态链表的长度
-    int Search(T x); // 查找具体结点
-    int Locate(int i); // 查找第i个结点
-    bool Append(T x); // 在表尾追加一个结点
-    bool Insert(int i, T x); // 在第i个结点后插入新结点
-    bool Remove(int i); // 在静态链表删除第i个结点
-    bool IsEmpty(); // 判空
+    StaticList()
+    {
+        elem = new SLinkNode<T>[maxSize]();
+        initList();
+    }
+    void initList(); // 初始化链表
+    int length() const; // 计算静态链表的长度
+    int search(T x); // 查找具体结点
+    int locate(int i); // 查找第i个结点
+    bool append(T x); // 在表尾追加一个结点
+    bool insert(int i, T x); // 在第i个结点后插入新结点
+    bool remove(int i); // 在静态链表删除第i个结点
+    bool isEmpty(); // 判空
+    void output(); // 输出
 };
 
 // 初始化链表
 template <class T>
-void StaticList<T>::InitList()
+void StaticList<T>::initList()
 {
     elem[0].link = -1; // 设置头结点
     avil = 1; // 结点首地址从1开始
-    for (int i = 1; i < MaxSize - 1; i++) {
+    for (int i = 1; i < maxSize - 1; i++) {
         elem[i].link = i + 1; // 构成空闲链表，下标+1为链接指针地址
     }
-    elem[MaxSize - 1].link = -1; // 链表收尾
+    elem[maxSize - 1].link = -1; // 链表收尾
 }
 
 // 计算静态链表的长度
 template <class T>
-int StaticList<T>::Length() const
+int StaticList<T>::length() const
 {
     int p = elem[0].link; // 指向头结点
     int count = 0;
@@ -47,14 +69,14 @@ int StaticList<T>::Length() const
 
 // 判空
 template <class T>
-bool StaticList<T>::IsEmpty()
+bool StaticList<T>::isEmpty()
 {
     return elem[0].link == -1;
 }
 
 // 查找具体结点
 template <class T>
-int StaticList<T>::Search(T x)
+int StaticList<T>::search(T x)
 {
     int p = elem[0].link;
     while (p != -1) {
@@ -67,9 +89,9 @@ int StaticList<T>::Search(T x)
     return p;
 }
 
-// 定位第i个元素
+// 定位第 i 个元素
 template <class T>
-int StaticList<T>::Locate(int i)
+int StaticList<T>::locate(int i)
 {
     if (i < 0) {
         return -1;
@@ -79,7 +101,7 @@ int StaticList<T>::Locate(int i)
     }
     int j = 1, p = elem[0].link;
     while (p != -1 && j < i) {
-        p = elem[p].link; // 由于可能存在非表尾插入，故下标+1不一应为下个元素的地址
+        p = elem[p].link; // 由于可能存在非表尾插入，故下标 +1 不一应为下个元素的地址
         j++;
     }
     return p;
@@ -87,9 +109,9 @@ int StaticList<T>::Locate(int i)
 
 // 在表尾追加一个结点
 template <class T>
-bool StaticList<T>::Append(T x)
+bool StaticList<T>::append(T x)
 {
-    if (avi == -1) {
+    if (avil == -1) {
         return false;
     }
     int q = avil; // 指向当前元素的地址 1 = elem[1].link = 2（下一个分配的地址）
@@ -97,18 +119,19 @@ bool StaticList<T>::Append(T x)
     elem[q].data = x; // elem[1].data = x
     elem[q].link = -1; // 当前为表尾
     int p = 0;
-    while (elem[q].link != -1) {
+    while (elem[p].link != -1) { // 找到原先表尾
         p = elem[p].link;
     }
-    elem[p].link = q;
+    elem[p].link = q; // 链入
+
     return true;
 }
 
-// 在第i个结点后插入新结点
+// 在第 i 个结点后插入新结点
 template <class T>
-bool StaticList<T>::Insert(int i, T x)
+bool StaticList<T>::insert(int i, T x)
 {
-    int p = Locate(i);
+    int p = locate(i);
     if (p == -1) {
         return false;
     }
@@ -116,14 +139,14 @@ bool StaticList<T>::Insert(int i, T x)
     avil = elem[avil].link; // 此时地址不连续
     elem[q].data = x;
     elem[q].link = elem[p].link; // 链入
-    elem[p].link = q; // i的下个结点为插入的新结点
+    elem[p].link = q; // i 的下个结点为插入的新节点
     return true;
-}
+};
 
 template <class T>
-bool StaticList<T>::Remove(int i)
+bool StaticList<T>::remove(int i)
 {
-    int p = Locate(i - 1);
+    int p = locate(i - 1);
     if (p == -1) {
         return false;
     }
@@ -132,4 +155,19 @@ bool StaticList<T>::Remove(int i)
     elem[q].link = avil;
     avil = q;
     return true;
-}
+};
+
+// 输出
+template <class T>
+void StaticList<T>::output()
+{
+    int p = elem[0].link;
+
+    while (p != -1) {
+        cout << elem[p].data << " ";
+        p = elem[p].link;
+    }
+    cout << endl;
+};
+
+#endif

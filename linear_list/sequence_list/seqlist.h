@@ -1,5 +1,17 @@
-#include "../LinearList.h"
+/**
+ * @file seqlist.h
+ * @author Huang Z.Y.
+ * @brief 顺序表(sequence list)是用一段物理地址连续的存储单元依次存储数据元素的线性结构，一般情况下采用数组存储。
+ * 在数组上完成数据的增删查改。
+ * @version 0.1
+ * @date 2023-01-02
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 
+#ifndef SEQLIST_H
+#define SEQLIST_H
 template <class T>
 class SeqList : public LinearList<T> {
 public:
@@ -36,7 +48,7 @@ SeqList<T>::SeqList(int sz)
         last = -1; // 表尾位置为-1
     }
     data = new T[maxSize];
-    if (data == NULL) { // 内存分配失败
+    if (data == nullptr) { // 内存分配失败
         cerr << "存储分配错误" << endl;
         exit(1);
     }
@@ -49,7 +61,7 @@ SeqList<T>::SeqList(SeqList<T>& L)
     maxSize = L.maxSize;
     last = L.last;
     data = new T[maxSize];
-    if (data == NULL) {
+    if (data == nullptr) {
         cerr << "存储分配错误" << endl;
         exit(1);
     }
@@ -70,7 +82,7 @@ SeqList<T>& SeqList<T>::operator=(const SeqList<T>& L)
     maxSize = L.maxSize;
     last = L.last;
     data = new T[maxSize];
-    if (data == NULL) {
+    if (data == nullptr) {
         cerr << "存储分配错误" << endl;
         exit(1);
     }
@@ -90,7 +102,7 @@ void SeqList<T>::reSize(int newSize)
     }
     if (newSize != maxSize) { // 有效修改
         T* newData = new T[newSize];
-        if (newData == NULL) { // 重新分配内存
+        if (newData == nullptr) { // 重新分配内存
             cerr << "存储分配错误" << endl;
             exit(1);
         }
@@ -111,7 +123,7 @@ template <typename T>
 int SeqList<T>::locate(int i) const
 {
     if (i >= 0 && i <= last) {
-        return getData(i);
+        return i;
     } else {
         return -1;
     }
@@ -191,7 +203,7 @@ bool SeqList<T>::remove(int i, T& x)
 template <typename T>
 void SeqList<T>::input()
 {
-    cout << "开始创建顺序表，请输入要插入的元素数并依次输入元素：" << endl;
+    cout << "开始创建顺序表，输入要插入的元素数并依次输入元素：" << endl;
     while (1) {
         cin >> last;
         if (last < maxSize) {
@@ -225,3 +237,4 @@ void SeqList<T>::sort() // 利用已有函数
 {
     std::sort(data, data + last + 1);
 }
+#endif

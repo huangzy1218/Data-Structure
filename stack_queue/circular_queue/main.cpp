@@ -1,25 +1,38 @@
+/**
+ * @file main.cpp
+ * @author Huang Z.Y.
+ * @brief a test of circular list
+ * @version 0.1
+ * @date 2023-01-03
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
 #include "seqqueue.h"
 
 int main(void)
 {
     SeqQueue<int> sq;
-    int n;
-    int elem;
-    cout << "入队：" << endl;
-    cout << "请输入插入元素个数及元素值" << endl;
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        cin >> elem;
-        sq.enQueue(elem);
+
+    // 入队列
+    for (int i = 1; i <= 10; i++) {
+        sq.enQueue(i);
     }
-    cout << "入队后，队列如下：" << endl;
+
+    // 输出运算符重载
     cout << sq;
-    cout << "获取队首元素：" << endl;
+
+    // 获取队首元素
+    int elem;
     sq.getFront(elem);
-    cout << elem << endl;
-    cout << "出队：" << endl;
+    cout << "队首元素：" << elem << endl;
+
+    // 出队
     sq.deQueue(elem);
     cout << "出队元素：" << elem << endl;
+
+    cout << sq;
 
     return 0;
 }

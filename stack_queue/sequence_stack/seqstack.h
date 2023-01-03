@@ -1,3 +1,16 @@
+/**
+ * @file seqstack.h
+ * @author Huang Z.Y.
+ * @brief 顺序栈(sequence stack)是指利用顺序存储结构实现的栈。采用地址连续的存储空间依次存储栈中数据元素，
+ * 由于入栈和出栈运算都是在栈顶进行，而栈底位置是固定不变的，故需要使用 top 记录栈顶位置。
+ * @version 0.1
+ * @date 2023-01-03
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+#ifndef SEQSTACK_H
+#define SEQSTACK_H
 #include "Stack.h"
 #include <cassert>
 #include <iostream>
@@ -102,3 +115,5 @@ ostream& operator<<(ostream& os, SeqStack<T>& S)
     os << endl;
     return os;
 };
+
+#endif
