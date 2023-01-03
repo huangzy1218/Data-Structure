@@ -1,2 +1,2 @@
 # Data-Structure
-Learn DS
+Learn data structure
