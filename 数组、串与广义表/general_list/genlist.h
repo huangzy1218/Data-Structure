@@ -20,13 +20,13 @@ using namespace std;
 // 广义表结点类定义
 template <class T>
 struct GenListNode {
-    int utype; // 标志域：0表示附加头结点，1表示子节点，2代表子表结点
+    int utype; // 标志域：0 表示原子结点，1 代表子表结点
     GenListNode<T>* tlink;
     union // 使用联合有效减少内存
     {
-        T value;
-        GenListNode<T>* hlink;
-    }; // 信息域：utype = 0，信息域存放引用计数，utype = 1，存放数值，utype = 2存放下一个表结点的地址
+        T value; // 存放数据
+        GenListNode<T>* hlink; // 存放下个结点指针
+    }; // 信息域
 };
 
 template <class T>
@@ -63,11 +63,11 @@ void GenList<T>::createGenList(GenListNode<T>*& gNode)
     cin >> ch;
     if (ch == '#') {
         gNode = nullptr;
-    } else if (ch == '(') {
+    } else if (ch == '(') { // 子表
         gNode = new GenListNode<T>();
         gNode->utype = 1;
         createGenList(gNode->hlink);
-    } else {
+    } else { // 普通结点
         gNode = new GenListNode<T>();
         gNode->utype = 0;
         gNode->value = ch;
